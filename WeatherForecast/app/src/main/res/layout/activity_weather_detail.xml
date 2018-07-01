@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/detailBackground"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_large"
+    tools:context="com.example.weather.weatherforecast.activities.WeatherDetailActivity">
+
+    <TextView
+        android:id="@+id/day_of_week_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_small"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_large"
+        tools:text="@string/mock_day_of_week"
+        />
+
+    <TextView
+        android:id="@+id/date_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_medium"
+        android:textSize="@dimen/text_medium"
+        tools:text="@string/mock_date"/>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/temp_current_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_detail_large_temp"
+            app:layout_constraintBottom_toTopOf="@+id/temp_min_tv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/weather_img"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/mock_temp_current"/>
+
+        <TextView
+            android:id="@+id/temp_min_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_extra_large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/temp_current_tv"
+            app:layout_constraintRight_toRightOf="@+id/temp_current_tv"
+            app:layout_constraintTop_toBottomOf="@+id/temp_current_tv"
+            tools:text="@string/mock_temp_min"
+            />
+
+        <ImageView
+            android:id="@+id/weather_img"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_medium"
+            app:layout_constraintLeft_toRightOf="@id/temp_current_tv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/art_clear"/>
+
+        <TextView
+            android:id="@+id/condition_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_medium"
+            app:layout_constraintLeft_toLeftOf="@+id/weather_img"
+            app:layout_constraintRight_toRightOf="@id/weather_img"
+            app:layout_constraintTop_toBottomOf="@id/weather_img"
+            tools:text="@string/mock_condition"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/humidity_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_small"
+        android:paddingTop="@dimen/padding_medium"
+        android:textSize="@dimen/text_medium"
+        tools:text="@string/mock_humidity"/>
+
+    <TextView
+        android:id="@+id/pressure_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_small"
+        android:textSize="@dimen/text_medium"
+        tools:text="@string/mock_pressure"/>
+
+    <TextView
+        android:id="@+id/wind_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_small"
+        android:textSize="@dimen/text_medium"
+        tools:text="@string/mock_wind"/>
+</LinearLayout>

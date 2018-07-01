@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Weather Forecast</string>
+
+    <string name="mock_full_date">Today, November 78</string>
+    <string name="mock_day_of_week">Fakeday</string>
+    <string name="mock_date">November 45</string>
+    <string name="mock_temp_current">456°</string>
+    <string name="mock_temp_min">12°</string>
+    <string name="mock_condition">Thunderstorms</string>
+    <string name="mock_humidity">Humidity: 102 %</string>
+    <string name="mock_pressure">Pressure: 122 hPa</string>
+    <string name="mock_wind">Wind: 2 km/h NW</string>
+
+    <string name="error_device_offline">Unable to retrieve weather info, device is offline.</string>
+    <string name="error_intent_not_found">Error passing weather data</string>
+    <string name="error_network_day_weather">Network Error: Unable to retrieve todays weather</string>
+    <string name="error_network_week_weather">Network Error: Unable to retrieve this weeks weather</string>
+</resources>
