@@ -2,6 +2,7 @@ package com.example.weather.weatherforecast.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.RestrictionEntry;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,17 +14,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.weather.weatherforecast.App;
 import com.example.weather.weatherforecast.R;
 import com.example.weather.weatherforecast.adapters.ForecastAdapter;
+import com.example.weather.weatherforecast.dagger.RestApi;
+import com.example.weather.weatherforecast.models.ForecastCurrent;
+import com.example.weather.weatherforecast.models.ForecastDaily;
 import com.example.weather.weatherforecast.models.ForecastSingleDay;
 import com.example.weather.weatherforecast.network.JsonParser;
 import com.example.weather.weatherforecast.network.NetworkCalls;
 import com.example.weather.weatherforecast.utilities.FieldFormatter;
 import com.example.weather.weatherforecast.utilities.ImageMapper;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class MainActivity extends AppCompatActivity implements ForecastAdapter.ForecastAdapterOnClickHandler{
@@ -37,14 +51,19 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
     private FrameLayout frameLayoutToday;
 
     private ForecastAdapter forecastAdapter;
-    private LinearLayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager;
+
+    @Inject
+    Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ((App) getApplication()).getNetComponent().inject(this);
         initUiComponents();
+
         fetchWeatherOnlyIfDeviceOnline();
     }
 
@@ -68,11 +87,31 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
         if (NetworkCalls.isDeviceOnline(this)) {
             new FetchCurrentWeatherTask().execute();
             new FetchDailyWeatherTask().execute();
+            makeGetCurrentForecastCall();
         }else{
             Toast.makeText(this, getString(R.string.error_device_offline), Toast.LENGTH_LONG).show();
         }
     }
 
+    private void makeGetCurrentForecastCall(){
+
+        Call<ForecastCurrent> forecast = retrofit.create(RestApi.class).getCurrentForecast();
+
+        forecast.enqueue(new Callback<ForecastCurrent>() {
+            @Override
+            public void onResponse(Call<ForecastCurrent> call, Response<ForecastCurrent> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ForecastCurrent> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    // TODO : extract functionality into makeGetCurrentForecastCall
     private class FetchCurrentWeatherTask extends AsyncTask<Void, Void, ForecastSingleDay>{
         @Override
         protected ForecastSingleDay doInBackground(Void... params) {
@@ -131,6 +170,25 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
         startActivity(intentStartWeatherDetail);
     }
 
+    private void makeGetDailyForecastCall(){
+
+        Call<List<ForecastDaily>> forecast = retrofit.create(RestApi.class).getDailyForecast();
+
+        forecast.enqueue(new Callback<List<ForecastDaily>>() {
+            @Override
+            public void onResponse(Call<List<ForecastDaily>> call, Response<List<ForecastDaily>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ForecastDaily>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    // TODO : extract funtionality in to makeGetDailyForecastCall
     private class FetchDailyWeatherTask extends AsyncTask<Void, Void, ArrayList<ForecastSingleDay>>{
         @Override
         protected ArrayList<ForecastSingleDay> doInBackground(Void... params) {
